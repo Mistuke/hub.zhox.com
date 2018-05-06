@@ -1,0 +1,56 @@
+# Site settings
+baseurl = "https://hub.zhox.com/"
+themesDir = "themes"
+languageCode = "en-us"
+title = "Random thought from a compiler engineer."
+theme = "hugo-cactus-theme"
+# Enter your tracking code to enable Google Analytics
+googleAnalytics = "UA-118757070-1"
+# Disable comments by leaving disqusShortname empty
+disqusShortname = ""
+publishDir = "../"
+
+[params]
+	name = "Tamar Christina"
+	description = "Random compiler thoughts"
+	bio = "Compiler Engineer"
+	# Enter optionally your twitter account
+	twitter = ""
+	enableRSS = true
+
+	# Integrate Javascript files or stylesheets by adding the url to the external assets or by
+	# linking local files with their path relative to the static folder, e.g. "css/styles.css"
+	customCSS = ["css/styles.css"]
+	customJS  = []
+
+	# The variables below are optionally too and can be used to
+	# translate or customize each string of the theme.
+
+	# Navigation links
+	home = ""
+	subscribe = ""
+	# Pagination links
+	olderPosts = ""
+	newerPosts = ""
+	readMore = ""
+	copyright = ""
+	# Sharing options and author information in posts
+	aboutAuthor = "GNU developer by day, GHC (and others) Windows contributor by night."
+	tweet = ""
+	share = ""
+	# 404 page
+	title404 = ""
+	subtitle404 = ""
+
+	# Choose a font for the social icons in the footer. Either "mono-social" or "font-awesome"
+	iconFont = "font-awesome"
+    # The social icons can be styled differently if you use mono as font - circle, rounded, or empty
+    socialIconStyle = "circle"
+
+# Add additional social link entries underneath
+[social]
+    #twitter  = "https://twitter.com/Phyx"
+    #facebook = "https://www.facebook.com/"
+    github   = "https://www.github.com/Mistuke"
+    linkedin = "https://www.linkedin.com/in/tamarchristina"
+    #dribble  = "https://www.dribbble.com/"

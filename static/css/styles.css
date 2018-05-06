@@ -1,0 +1,113 @@
+body {
+	background-color: whitesmoke;
+	background-image: url("/images/46.png");
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: left;
+	background-attachment: fixed;
+}
+
+.attrib {
+	font-size: 0.8em;
+	text-align: center;
+}
+
+a:link {
+	color: #000000;
+	text-decoration: none;
+}
+
+a:active {
+	color: #0000ff;
+	text-decoration: none;
+}
+
+a:visited {
+	color: darkgoldenrod;
+	text-decoration: none;
+}
+
+a:hover {
+	color: darkred;
+	text-decoration: underline;
+}
+
+.profile #avatar {
+	width: 140px;
+	height: 140px;
+}
+
+.script {
+	font-family: "Seaweed Script";
+	text-align: center;
+	font-size: 35px !important;
+	position: relative;
+	margin:0;
+}
+
+h1 {
+	color: #111 !important;
+	font-family: 'Helvetica Neue', sans-serif;
+	font-size: 35px !important;
+	font-weight: bold !important;
+	letter-spacing: -1px !important;
+	line-height: 1 !important;
+	text-align: center !important;
+}
+
+h2 {
+	color: #111 !important;
+	font-family: 'Nexa Bold', 'Open Sans', sans-serif !important;
+	font-style: normal !important;
+	font-size: 16px !important;
+	font-weight: 300 !important;
+	margin-top: 5px !important;
+	text-align: center;
+	padding-top: 5px !important;
+	padding-bottom: 2px !important;
+}
+
+.mono {
+	color: #685206 !important;
+	font-family: 'Helvetica Neue', sans-serif !important;
+	font-size: 14px !important;
+	line-height: 24px !important;
+	margin: 10px 0 10px !important;
+	text-align: center !important;
+	text-justify: inter-word !important;
+}
+
+.fancy {
+	line-height: 0.5 !important;
+	text-align: center;
+}
+
+.fancy span {
+	display: inline-block;
+	position: relative;
+}
+
+.fancy span:before,
+.fancy span:after {
+	content: "";
+	position: absolute;
+	height: 5px;
+	border-bottom: 1px solid rgba(119, 136, 153, 0.5) !important;
+	border-top: 1px solid rgba(119, 136, 153, 0.5) !important;
+	top: 0;
+	width: 100px;
+}
+
+.fancy span:before {
+	right: 100%;
+	margin-right: 15px;
+}
+
+.fancy span:after {
+	left: 100%;
+	margin-left: 15px;
+}
+
+.small {
+	color: gray !important;
+}

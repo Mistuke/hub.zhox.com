@@ -1,0 +1,12 @@
+<div class="profile">
+    <section id="wrapper">
+        <header id="header">
+            <a href="{{ "about" | absURL }}">
+                <img id="avatar" class="2x" src="{{ "images/avatar.png" | absURL }}"/>
+            </a>
+            <h1 class="script">{{ .Site.Params.name }}</h1>
+            <h2 class="fancy"><span>{{ .Site.Params.bio | markdownify }}</span></h2>
+            <div class="mono">{{ .Site.Params.aboutAuthor | markdownify }}</div>
+        </header>
+    </section>
+</div>
