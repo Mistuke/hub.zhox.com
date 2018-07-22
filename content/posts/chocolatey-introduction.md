@@ -71,8 +71,9 @@ refreshenv
 ```
 
 Will install both `GHC 8.4.1` and `8.2.2` at once, with `GHC 8.4.1` being accessible
-by the un-suffixed `ghc` command. Using `cabal new-build`'s `-w` flag you can easily switch
-between the two versions:
+by the un-suffixed `ghc` command. The `-m` option means allow `multiple` which won't
+force only one version to be installed. Using `cabal new-build`'s `-w` flag you can
+easily switch between the two versions:
 
 ```
 cabal new-build -w ghc-8.4.1
@@ -217,7 +218,7 @@ would be a no-op. The `-y` makes `Chocolatey` suppress the script execution ques
 ```
 
 As before we reload the `environment variables`, which unfortunately also clears the custom ones `AppVeyor` sets.
-To restore the ones we need we modify the `PATH` to conatin `msys2` and where we expect older `GHC`s to have been installed.
+To restore the ones we need we modify the `PATH` to contain `msys2` and where we expect older `GHC`s to have been installed.
 
 ***NOTE:*** __If you actually intend to use `pacman` packages, please set the appropriate `mingw` for the architecture you intend
 to use. The above examples all set the `64 bit` paths.__
