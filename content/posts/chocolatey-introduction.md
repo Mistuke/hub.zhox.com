@@ -187,7 +187,9 @@ it doesn't hit `MAX_PATH` as easily. (***NOTE:*** __`GHC 8.6` and newer no longe
 end user programs. So in the future once `cabal` is compiled with `GHC 8.6` this won't be needed, but for
 backwards compatibility should still be used for now.__)
 
-The `http-transport` is unimportant, it can be omitted but I prefer to not have it use `curl` from `msys2`.
+The `http-transport` is unimportant, it can be omitted but I prefer to not have it use `curl` from `msys2`
+just because it's an emulated binary and will be slower than the plain `http-transport` or `powershell`
+transport options.
 
 ```
 cache:
