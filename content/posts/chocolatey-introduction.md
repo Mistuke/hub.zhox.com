@@ -1,7 +1,7 @@
 ---
 title: "Haskell & AppVeyor Chocolatey Introduction"
 date: 2018-07-22T13:14:25+01:00
-draft: true
+draft: false
 ---
 
 For those who are unaware, Windows has had quite a push lately to provide script-able
