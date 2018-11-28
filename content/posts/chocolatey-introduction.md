@@ -76,8 +76,8 @@ force only one version to be installed. Using `cabal new-build`'s `-w` flag you 
 easily switch between the two versions:
 
 ```
-cabal new-build -w ghc-8.4.1
-cabal new-build -w ghc-8.2.2
+cabal new-build -w ghc-8.4.1.exe
+cabal new-build -w ghc-8.2.2.exe
 ```
 
 So take a look at the Chocolatey based distributions, which can also be used to install a full
