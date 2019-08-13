@@ -75,18 +75,22 @@ For the longest time the tickets and frustrations of Windows users have been pil
 tag `"upstream"`.  Others have devised workaround such as using `DOS 8.3` shortnames, however these
 have multiple issues:
 
-* They're a performance bottleneck. You do extra writes in your `MFT` for each entry and the algorithm to find a unique shortname does a linear probe.
-* They can be disabled, and then things won't work.
-* A shortname is extra data to an existing path, which means you can't have a shortname to a non-existent file.
+<ul class="list">
+<li> They're a performance bottleneck. You do extra writes in your <code>MFT</code> for each entry and the algorithm to find a unique shortname does a linear probe.</li>
+<li> They can be disabled, and then things won't work.</li>
+<li> A shortname is extra data to an existing path, which means you can't have a shortname to a non-existent file.</li>
+</ul>
 
 So what can we do about it without changing the source? We can change the binaries!
 
 Essentially what we're going to do is replace every call to certain functions in GCC and Binutils with
 new and improved ones.  There are three ways this "hooking" can be done:
 
-* `Dynamic`: The program is created suspended, the headers of the program is modified in memory and addresses for the functions we want to hook will be overridden by the new ones.
-* `Static`: The header is modified directly in the file on disk.
-* `Local redirect`: Windows has a feature where a `.local` [forwarder file](https://docs.microsoft.com/en-us/windows/desktop/dlls/dynamic-link-library-redirection) can be used to redirect access to a DLL with one that's local (in a subfolder of the local file).  This won't work as certain system DLLs such as `msvcrt.dll` are exempt from being redirected.
+<ul class="list">
+<li> <code>Dynamic</code>: The program is created suspended, the headers of the program is modified in memory and addresses for the functions we want to hook will be overridden by the new ones.</li>
+<li> <code>Static</code>: The header is modified directly in the file on disk.</li>
+<li> <code>Local redirect</code>: Windows has a feature where a <code>.local</code> <a href="https://docs.microsoft.com/en-us/windows/desktop/dlls/dynamic-link-library-redirection">forwarder file</a> can be used to redirect access to a DLL with one that's local (in a subfolder of the local file).  This won't work as certain system DLLs such as <code>msvcrt.dll</code> are exempt from being redirected.</li>
+</ul>
 
 `Dynamic` is nice as it makes no lasting changes to the binary, but it's also slower and requires changes to `GHC` itself. `Static` on the other hand will have no performance overhead but if the binaries are signed then the signatures would be invalidated.
 

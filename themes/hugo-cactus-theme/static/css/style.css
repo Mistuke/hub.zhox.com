@@ -184,13 +184,13 @@ ul, ol 	{ margin:0; padding:0; margin-bottom: 20px; }
 ul { list-style-type:circle; }
 ol { list-style: decimal; }
 
-li {
+.list li {
 	list-style-position:inside;
 	list-style: none;
 	line-break: strict;
 }
 
-li:before {
+.list li:before {
 	content: '';
 	color: white;
 	background: #d16666;
