@@ -5,10 +5,14 @@
 .hljs {
   display: block;
   overflow-x: auto;
-  /*padding: 0.5em;*/
+  padding: 0;
   background: #272b2d;
   color: #d0d0d0;
   -webkit-text-size-adjust: none;
+  font-family: 'Hack';
+  font-weight: 100;
+  font-style: normal;
+  font-size: 9pt;
 }
 
 .hljs-shebang,

@@ -4,13 +4,25 @@ date: 2019-04-28T23:49:39+01:00
 draft: true
 ---
 
+> *TL;DR:* `GHC 8.10+` Will ship with a custom `GCC+Binutils` bindist that will remove the
+> `MAX_PATH` limitation to files.  The GHC binaries themselves must still be in
+> installed in a path shorter than `MAX_PATH`.  `GHC 8.6` and `GHC 8.8` are also
+> supported if installed via chocolatey by installing the extension ghc-jailbreak.
+
+<pre class="light">
+NOTE: I know that some people will consider this a hack, and while it is a hack it is
+one born out of frustration and 10+ years of upstream projects GHC depends on
+not doing anything about it.  If you are one of those people you can stop
+reading now as I promise you won't be happier by the end.
+</pre>
+
 On Windows the ancient `ANSI` APIs are generally constrained in the length of
-file paths to ~260 characters.  In the `Windows.h` header this limit is defined
+file paths to **~260** characters.  In the `Windows.h` header this limit is defined
 as the `MAX_PATH` constant.
 
 So how does this manifest itself? Usually as a `file not found` error as the
 path is silently truncated to this maximum when these APIs are called.  See for
-example how GHC `8.0.1` handles long paths:
+example how `GHC 8.0.1` handles long paths:
 
 ```
 > C:\ghc\ghc-8.0.1\bin\ghc.exe .\hello.hs -o "R:\<very long path>\a.exe" -fforce-recomp
@@ -28,8 +40,8 @@ Paths using these namespaces start with `\\.\` and `\\?\` respectively.  These
 are the paths you see when you look at the Windows mount table (using the `mountvol` command).
 
 The `device` namespace is used when you require raw/direct access to a device, e.g. `\\.\COM1`,
-whereas the `file` namespace is used for normal filesystem access.  `UNC` paths
-are accessible as `\\?\UNC\`. More at [MSDN](https://docs.microsoft.com/en-us/windows/desktop/FileIO/naming-a-file#fully-qualified-vs-relative-paths).
+whereas the `file` namespace is used for normal filesystem access.  `UNC` (Uniform Naming Convention,
+also known as network location) paths are accessible as `\\?\UNC\`. More at [MSDN](https://docs.microsoft.com/en-us/windows/desktop/FileIO/naming-a-file#fully-qualified-vs-relative-paths).
 
 Using these namespaces bypass all API level limitations as the path is passed directly to the
 underlying filesystem driver.  This lifts the filepath length limit to about `32,767` characters.
@@ -72,22 +84,22 @@ So what can we do about it without changing the source? We can change the binari
 Essentially what we're going to do is replace every call to certain functions in GCC and Binutils with
 new and improved ones.  There are three ways this "hooking" can be done:
 
-* Dynamic: The program is created suspended, the headers of the program is modified in memory and addresses for the functions we want to hook will be overridden by the new ones.
-* Static: The header is modified directly in the file on disk.
-* Using a local redirect: Windows has a feature where a `.local` [forwarder file](https://docs.microsoft.com/en-us/windows/desktop/dlls/dynamic-link-library-redirection) can be used to redirect access to a DLL with one that's local (in a subfolder of the local file).  This won't work as certain system DLLs such as `msvcrt.dll` are exempt from being redirected.
+* `Dynamic`: The program is created suspended, the headers of the program is modified in memory and addresses for the functions we want to hook will be overridden by the new ones.
+* `Static`: The header is modified directly in the file on disk.
+* `Local redirect`: Windows has a feature where a `.local` [forwarder file](https://docs.microsoft.com/en-us/windows/desktop/dlls/dynamic-link-library-redirection) can be used to redirect access to a DLL with one that's local (in a subfolder of the local file).  This won't work as certain system DLLs such as `msvcrt.dll` are exempt from being redirected.
 
 `Dynamic` is nice as it makes no lasting changes to the binary, but it's also slower and requires changes to `GHC` itself. `Static` on the other hand will have no performance overhead but if the binaries are signed then the signatures would be invalidated.
 
 Luckily the binaries are not signed, so I went with the `Static` approach.
 
-Essentially the game plan is this, in every binary in the `mingw` folder of `ghc`
+Essentially the game plan is in every binary in the `mingw` folder of `ghc`
 we do the following:
 
 Find the IAT (`Import Address Table`) entry for `msvcrt.dll` (the Microsoft C runtime) and replace these with a new runtime `phxcrt.dll`.  That name was chosen as it has the same length as the original file we're replacing.  After the replacement is done the `PE header checksum` is re-calculated and the new values written out.
 
 ![IAT](/images/import_descriptor.png "Import Address Table")
 
-The `phxcrt.dll` is a thin `forwarder only` DLL. It uses a little known feature of the Windows system loader to allow one to forward a call to another DLL. The final address is the one that the loader will write back into the `import descriptor`, so this cost is small and paid only once.  (Note that this does require strict binding of functions, but lazy binding can also be overridden but by a different mechanism.)
+The `phxcrt.dll` is a thin `forwarder only` DLL. It uses a little known feature of the Windows system loader to allow one to forward a call to another DLL. The final address is the one that the loader will write back into the `import descriptor`, so this cost is small and paid only once.  (Note that this does require strict binding of functions. Lazy binding can also be overridden but by a different mechanism.)
 
 `phxcrt.dll` will forward the calls we don't care about to `msvcrt.dll` and the ones we do will be forwarded to `muxcrt.dll` (I'll leave the details of this to another post).
 

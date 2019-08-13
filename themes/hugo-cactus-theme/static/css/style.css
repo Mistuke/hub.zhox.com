@@ -52,7 +52,7 @@ html, body { height: 100%; }
 
 body {
 	font:16px/1 "Helvetica Neue", Helvetica, Arial, sans-serif;
-	color: #666;
+	color: #223e59;
 	-webkit-font-smoothing: antialiased;
 	text-rendering: optimizeLegibility;
 }
@@ -183,7 +183,23 @@ a,
 ul, ol 	{ margin:0; padding:0; margin-bottom: 20px; }
 ul { list-style-type:circle; }
 ol { list-style: decimal; }
-li	{  list-style-position:inside; }
+
+li {
+	list-style-position:inside;
+	list-style: none;
+	line-break: strict;
+}
+
+li:before {
+	content: '';
+	color: white;
+	background: #d16666;
+	display: inline-block;
+	text-align: center;
+	margin: 5px 10px;
+	width: 8px;
+	height: 8px;
+}
 
 /* Line Height */
 #post-body, p { line-height:1.7; }
@@ -297,7 +313,7 @@ hr {
 	background: #eee;
 }
 
-span.code { font-family:Menlo, Monaco, Courier; background-color:#EEE; font-size:14px; }
+span.code { font-family:Menlo, Monaco, Courier; background-color:rgb(218, 205, 205); font-size:14px; }
 
 pre	{
 	font-family:Menlo, Monaco, Courier;
@@ -314,7 +330,11 @@ pre	{
 	  line-height: 1.5em;
 	  font-weight: 500;
 	color: #d0d4d7;
+}
 
+pre.light {
+	background-color: #d16666;
+	color: #fefcfd;
 }
 
 table {
