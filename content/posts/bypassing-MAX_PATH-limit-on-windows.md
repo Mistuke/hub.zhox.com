@@ -1,7 +1,7 @@
 ---
 title: "Bypassing MAX_PATH Limit with GHC on Windows"
 date: 2019-04-28T23:49:39+01:00
-draft: true
+draft: false
 ---
 
 > *TL;DR:* `GHC 8.10+` Will ship with a custom `GCC+Binutils` bindist that will remove the
@@ -11,10 +11,10 @@ draft: true
 
 <pre class="light">
 NOTE: I know that some people will consider this a hack, and while it is a hack it is
-one born out of frustration and 10+ years of upstream projects GHC depends on
-not doing anything about it.  If you are one of those people you can stop
-reading now as I promise you won't be happier by the end.
+the best solution that works on older platforms as well.
 </pre>
+
+## Introduction
 
 On Windows the ancient `ANSI` APIs are generally constrained in the length of
 file paths to **~260** characters.  In the `Windows.h` header this limit is defined
@@ -28,6 +28,8 @@ example how `GHC 8.0.1` handles long paths:
 > C:\ghc\ghc-8.0.1\bin\ghc.exe .\hello.hs -o "R:\<very long path>\a.exe" -fforce-recomp
 <command line>: error: directory portion of "R:\\<very long path>\\a.exe" does not exist (used with "-o" option.)
 ```
+
+## Background
 
 When Microsoft introduced the `Wide` versions of the `Win32` APIs they added the
 ability to bypass this limit (and other naming restrictions) by using an extended
@@ -80,6 +82,8 @@ have multiple issues:
 <li> They can be disabled, and then things won't work.</li>
 <li> A shortname is extra data to an existing path, which means you can't have a shortname to a non-existent file.</li>
 </ul>
+
+## Solution
 
 So what can we do about it without changing the source? We can change the binaries!
 
@@ -139,13 +143,21 @@ Success! To check if as expected the redirects are cheap we inspect the API trac
 
 And as expected, the `IAT` has a mix of `muxcrt.dll` and `msvcrt.dll` but no `phxcrt.dll` apart from the initialization calls.
 
-The patcher is currently available for wide testing and can be installed through `chocolatey`:
+## How to get it
+
+The patcher is currently available for wide testing and can be installed through `chocolatey`.
+Because of the nature of it it's currently only available on my private chocolatey feed:
 
 ```
+choco source add -n mistuke -s https://www.myget.org/F/mistuke/api/v2
 choco install ghc-jailbreak
 ```
 
-and you're good to go! To undo the patching just uninstall the patcher using
+and you're good to go! This will patch the GHC that's on your path.  It
+currently supports patching only one GHC automatically.  Though you can call
+the patch CmdLets to patch multiple GHC installs.
+
+To undo the patching just uninstall the patcher using
 
 ```
 choco uninstall ghc-jailbreak
