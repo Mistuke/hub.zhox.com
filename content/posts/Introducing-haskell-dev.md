@@ -49,7 +49,7 @@ refreshenv
 ```
 
 <pre class="light">
-NOTE: For a longer introduction see [Introduction to Chocolatey](https://hub.zhox.com/posts/chocolatey-introduction/).
+NOTE: For a longer introduction see <a style="color: #000" href="https://hub.zhox.com/posts/chocolatey-introduction/">Introduction to Chocolatey</a>.
 </pre>
 
 For the longest time the complaint here was that these packages do not install `msys2` and so are unsuitable to fully
@@ -62,10 +62,8 @@ With the release of `Cabal 3.0.0.0` this is no longer the case.
 There are a couple of new things in both the `Cabal 3.0.0.0` and `GHC 8.8.1` packages
 
 <pre class="light">
-NOTE: At the time of writing the GHC 8.8.1 package has not been published yet due to there
-being no 32-bit build for GHC 8.8.1 available.  Publishing the package without it would
-block 32-bit users from using the unversioned package head (i.e. from being able to install the
-latest GHC without needing to give an explicit version).
+NOTE: At the time of writing the GHC 8.8.1 package has not been published yet due to there being no 32-bit build for GHC 8.8.1 available.
+Publishing the package without it would block 32-bit users from using the unversioned package head (i.e. from being able to install the latest GHC without needing to give an explicit version).
 </pre>
 
 ### Cabal 3.0+
@@ -219,9 +217,7 @@ NOTE: I don't particularly use anything in an IDE aside from syntax highlighting
 be fully in tune with the needs of people who do.  As such I am looking for two things:
 
 - What do people want the IDE package to do/come with out of the box.
-- I am looking for co-maintainers, as mentioned I won't be using this much myself so I'd like
-  people who have slightly more skin in the game to help shape this.  The only hard requirement
-  is that this *has* to stay `cabal` centric.
+- I am looking for co-maintainers, as mentioned I won't be using this much myself so I'd like people who have slightly more skin in the game to help shape this.  The only hard requirement is that this *has* to stay `cabal` centric.
 </pre>
 
 -- Tamar
