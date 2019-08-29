@@ -8,10 +8,15 @@ draft: false
 > `MAX_PATH` limitation to files.  The GHC binaries themselves must still be in
 > installed in a path shorter than `MAX_PATH`.  `GHC 8.6` and `GHC 8.8` are also
 > supported if installed via chocolatey by installing the extension ghc-jailbreak.
+> For cabal to work correctly you need a cabal compiled with GHC 8.6+, on
+> chocolatey this means cabal 2.4+.
 
 <pre class="light">
 NOTE: I know that some people will consider this a hack, and while it is a hack it is
-the best solution that works on older platforms as well.
+the best solution that works on older platforms as well. For the Linux users
+reading this, while Windows does have an `LD_PRELOAD` equivalent system DLLs are
+exempt from this. On ELF platforms the approach taken here is equivalent to
+patching `DT_NEEDED` entries.
 </pre>
 
 ## Introduction
@@ -166,3 +171,7 @@ choco uninstall ghc-jailbreak
 This will undo the changes to all the binaries.
 
 For the full source visit the project [GitHub](https://github.com/Mistuke/Ghc-jailbreak).
+Please give it a try, and if you encounter any problems open a ticket so I can
+fix these up.
+
+-- Tamar
