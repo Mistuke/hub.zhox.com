@@ -1,6 +1,6 @@
 ---
 title: "The easiest way to setup a Haskell environment on Windows"
-date: 2018-07-22T13:14:25+01:00
+date: 2018-08-30T07:14:25+01:00
 draft: true
 ---
 
@@ -8,7 +8,7 @@ draft: true
 
 Windows has had quite a push lately to provide script-able ways to install
 packages. One such attempt that has gained quite a lot of traction is
-`Chocolatey` https://chocolatey.org/. Chocolatey's populary is quickly growing.
+`Chocolatey` (https://chocolatey.org/). Chocolatey's populary is quickly growing.
 
 Chocolatey is supported out of the box in all major cloud CI services including
 `AppVeyor`, `CircleCI`, `Travis CI` and `Azure Pipelines`.  It's also supported
@@ -27,18 +27,18 @@ verified.  If you don't trust the signatures you can provide your own that it
 uses to check against.  Once uploaded every binary the package installs is ran
 through a host of virus checkers and the results publicly posted.
 
-Read more on [Chocolatey security](https://chocolatey.org/security) here and see
+Read more on Chocolatey security [here](https://chocolatey.org/security) and see
 for yourself why it's trusted by so many companies.
 
 ## Introduction
 
 `Chocolatey` contains some of my own packages for installing `GHC` and `cabal`
 
-The `GHC` package https://chocolatey.org/packages/ghc goes all the way back to `GHC 6.10.1`
-and the `cabal-install` package https://chocolatey.org/packages/cabal to `cabal-install 0.6.0`.
+The `GHC` package (https://chocolatey.org/packages/ghc) goes all the way back to `GHC 6.10.1`
+and the `cabal-install` package (https://chocolatey.org/packages/cabal) to `cabal-install 0.6.0`.
 
 These are quite handy for those who use the `cabal+ghc` workflow like myself and like to switch
-compiler versions easy, or script environment setups.
+compiler versions easily, or script environment setups.
 
 After installing [Chocolatey](https://chocolatey.org/install#installing-chocolatey)
  one can install `GHC` simply using the command
@@ -62,8 +62,10 @@ With the release of `Cabal 3.0.0.0` this is no longer the case.
 There are a couple of new things in both the `Cabal 3.0.0.0` and `GHC 8.8.1` packages
 
 <pre class="light">
-NOTE: At the time of writing the GHC 8.8.1 package has not been published yet due to there being no 32-bit build for GHC 8.8.1 available.
-Publishing the package without it would block 32-bit users from using the unversioned package head (i.e. from being able to install the latest GHC without needing to give an explicit version).
+NOTE: At the time of writing the no 32-bit GHC 8.8.1 package has produced by GHC HQ.
+Publishing the GHC 8.8.1 package without a 32-bit release would block 32-bit users from using the unversioned package head (i.e. from being able to install the latest GHC without needing to give an explicit version).
+
+As such the GHC 8.8.1 package will install GHC 8.6.5 on 32-bit machines so that you get a working compiler. If 32-bits is important to you please let them know by filing a ticket at https://gitlab.haskell.org/ghc/ghc/issues
 </pre>
 
 ### Cabal 3.0+
@@ -95,10 +97,12 @@ skip_branch_with_pr: true
 platform:
   - x86_64
   - x86
+cache:
+ - "C:\\SR"
 
 environment:
   global:
-    CABOPTS:  --http-transport=plain-http
+    CABOPTS:  --store-dir=C:\\SR --http-transport=plain-http
     CHOCOCMD: ghc --version %GHCVER%
   matrix:
     - GHCVER: 8.6.2
@@ -190,7 +194,7 @@ individual component (such as upgrading `ghc` alone) or upgrade everything as a
 whole.
 
 <pre class="light">
-NOTE: Don't use this package for AppVeyor, you will needlessly duplicate work as it
+NOTE: Don't use this package for AppVeyor, you may needlessly duplicate work as it
 already provides `msys2`. Please install the `cabal` and `ghc` packages directly.
 </pre>
 
@@ -213,8 +217,7 @@ and automatically configure the extensions to work together out of the box.
 This will be available soon.
 
 <pre class="light">
-NOTE: I don't particularly use anything in an IDE aside from syntax highlighting so I may not
-be fully in tune with the needs of people who do.  As such I am looking for two things:
+NOTE: I don't particularly use anything in an IDE aside from syntax highlighting so I may not be fully in tune with the needs of people who do.  As such I am looking for two things:
 
 - What do people want the IDE package to do/come with out of the box.
 - I am looking for co-maintainers, as mentioned I won't be using this much myself so I'd like people who have slightly more skin in the game to help shape this.  The only hard requirement is that this *has* to stay `cabal` centric.

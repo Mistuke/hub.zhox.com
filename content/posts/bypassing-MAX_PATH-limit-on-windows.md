@@ -1,6 +1,6 @@
 ---
 title: "Bypassing MAX_PATH Limit with GHC on Windows"
-date: 2019-04-28T23:49:39+01:00
+date: 2019-08-28T23:49:39+01:00
 draft: false
 ---
 
