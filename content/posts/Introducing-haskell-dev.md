@@ -1,7 +1,7 @@
 ---
 title: "The easiest way to setup a Haskell environment on Windows"
-date: 2018-08-30T07:14:25+01:00
-draft: true
+date: 2019-08-30T07:14:25+01:00
+draft: false
 ---
 
 ## What is chocolatey
@@ -62,10 +62,10 @@ With the release of `Cabal 3.0.0.0` this is no longer the case.
 There are a couple of new things in both the `Cabal 3.0.0.0` and `GHC 8.8.1` packages
 
 <pre class="light">
-NOTE: At the time of writing the no 32-bit GHC 8.8.1 package has produced by GHC HQ.
+NOTE: No 32-bit GHC 8.8.1 package has produced by GHC HQ.
 Publishing the GHC 8.8.1 package without a 32-bit release would block 32-bit users from using the unversioned package head (i.e. from being able to install the latest GHC without needing to give an explicit version).
 
-As such the GHC 8.8.1 package will install GHC 8.6.5 on 32-bit machines so that you get a working compiler. If 32-bits is important to you please let them know by filing a ticket at https://gitlab.haskell.org/ghc/ghc/issues
+As such the GHC 8.8.1 package will install GHC 8.6.5 on 32-bit machines so that you get a working compiler.
 </pre>
 
 ### Cabal 3.0+
@@ -188,6 +188,15 @@ chocolatey command:
 ```
 choco install haskell-dev
 ```
+
+<pre class="light">
+NOTE: At this time the package is still undergoing moderation but is taking a long
+time due to an infrastructure issue with the automatic verification of packages on
+chocolatey.  For now to install you need to specify both the package name and version:
+
+choco install haskell-dev --version 0.0.1
+</pre>
+
 
 The benefits of using this package are that you can afterwards still manage each
 individual component (such as upgrading `ghc` alone) or upgrade everything as a
