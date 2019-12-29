@@ -120,12 +120,12 @@ for:
         - platform: x86
     environment:
       global:
-        GHCOPTS: --forcex86
+        ARCH_OPTS: --forcex86
 
 install:
  - choco source add -n mistuke -s https://www.myget.org/F/mistuke/api/v2
- - choco install %CHOCOCMD% -y %GHCOPTS% %CHOCOPTS% --ignore-dependencies
- - choco install -y cabal %CHOCOPTS%
+ - choco install %CHOCOCMD% -y %ARCH_OPTS% %CHOCOPTS% --ignore-dependencies
+ - choco install -y cabal %ARCH_OPTS% %CHOCOPTS%
  - refreshenv
 
 before_build:
