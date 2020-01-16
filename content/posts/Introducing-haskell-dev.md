@@ -189,15 +189,6 @@ chocolatey command:
 choco install haskell-dev
 ```
 
-<pre class="light">
-NOTE: At this time the package is still undergoing moderation but is taking a long
-time due to an infrastructure issue with the automatic verification of packages on
-chocolatey.  For now to install you need to specify both the package name and version:
-
-choco install haskell-dev --version 0.0.1
-</pre>
-
-
 The benefits of using this package are that you can afterwards still manage each
 individual component (such as upgrading `ghc` alone) or upgrade everything as a
 whole.
